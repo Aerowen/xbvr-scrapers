@@ -1,0 +1,86 @@
+{
+    "scraper_id": "vrallure",
+    "site_id": "VRAllure",
+    "studio": "VRAllure",
+    "site_icon": "https://z5w6x5a4.ssl.hwcdn.net/sites/vra/favicon/apple-touch-icon-180x180.png",
+    "allowed_domains": [
+        "vrallure.com"
+    ],
+    "start_url": "https://vrallure.com/scenes/",
+    "site_onhtml": {
+        "selector": "div.row h4.latest-scene-title a",
+        "visit_attr": "href",
+        "skip_known": true
+    },
+    "pagination_onhtml": {
+        "selector": "ul.pagination li a",
+        "visit_attr": "href",
+        "skip_known": false
+    },
+		"scene_onhtml": {
+        "selector": "html",
+        "parser": "vrallure.tengo",
+        "needed_vars": [
+            {
+                "var_name": "castNames",
+                "colly_method": "ChildTexts",
+                "colly_args": [
+                    "div.scene-details p.model-name a"
+                ]
+            },
+            {
+                "var_name": "cover",
+                "colly_method": "ChildAttr",
+                "colly_args": [
+                    "dl8-video",
+                    "poster"
+                ]
+            },
+            {
+                "var_name": "filenameURLS",
+                "colly_method": "ChildAttrs",
+                "colly_args": [
+                    "input.stream-input-box",
+                    "value"
+                ]
+            },
+            {
+                "var_name": "galleryURLS",
+                "colly_method": "ChildAttrs",
+                "colly_args": [
+                    "div.swiper-wrapper div.swiper-slide img",
+                    "src"
+                ]
+            },
+            {
+                "var_name": "released",
+                "colly_method": "ChildText",
+                "colly_args": [
+                    "div.scene-details p.publish-date"
+                ]
+            },
+            {
+                "var_name": "synopsis",
+                "colly_method": "ChildText",
+                "colly_args": [
+                    "div.scene-details div.video-desc p.desc span"
+                ]
+            },
+            {
+                "var_name": "tags",
+                "colly_method": "ChildTexts",
+                "colly_args": [
+                    "div.scene-details p.tag-container a"
+                ]
+            },
+						{
+								"var_name": "title",
+								"colly_method": "ChildAttr",
+								"colly_args": [
+										"dl8-video",
+										"title"
+								]
+						}
+        ]
+    }
+}
