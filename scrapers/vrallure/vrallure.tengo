@@ -19,7 +19,7 @@ duration := 0
 // Release date
 if released {
 	tmpReleased := times.parse("Jan 2, 2006", released)
-	released := times.time_format(tmpReleased, "2006-01-02")
+	released = times.time_format(tmpReleased, "2006-01-02")
 }
 
 // Cover URL is small and we need to change part of it for a large version
@@ -35,34 +35,18 @@ for i in galleryURLS {
 galleryURLS = g
 
 // Cast
-//org: sc.Cast = append(sc.Cast, strings.TrimSpace(strings.Replace(e.Text, ",", "", -1)))
 cast := []
 for i in castNames {
     cast = append(cast, text.trim_space( text.replace(i, ",", "", -1)  ) )
 }
 
-// Tags - TODO
-// Skipping some very generic and useless tags
-/*
-//org:
-		skiptags := map[string]bool{
-			"HD Virtual Reality Porn": true,
-			"Virtual Reality Porn":    true,
-			"VR Porn":                 true,
-		}
-
-		if tag != "" && !skiptags[tag] {
-			sc.Tags = append(sc.Tags, tag)
-		}
-*/
-
-// Filenames TODO
-//org: (not sure what this does in go exactly and no idea how to do this in tengo)
-/*
-origURL, _ := url.Parse(e.Attr("value"))
-   sc.Filenames = append(sc.Filenames, origURL.Query().Get("name"))
-*/
+// Filenames
+files := []
+for i in filenameURLS {
+	fmt.println("\nURL: " + i)
+	fmt.println("\nurlGetQueryParam:" + url.urlGetQueryParam(i, "name") )
+	files = append(url.urlGetQueryParam(i, "name"))
+}
+fmt.println("\nALL FILES" + files)
 // Some VR headsets use the same files so keep only the unique filenames.
-//filenames := funk.uniq_string(f)
-
-//fmt.println(varrrr)
+filenames := funk.uniq_string(files)
